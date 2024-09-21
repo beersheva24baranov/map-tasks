@@ -1,4 +1,4 @@
-package telran.collections;
+package map;
 
 import java.util.*;
 
