@@ -1,6 +1,8 @@
 package map;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MapTasks {
 public static void displayOccurrences(String[] strings) {
@@ -32,4 +34,35 @@ private static HashMap<String, Long> getMapOccurrences(String[] strings) {
     Arrays.stream(strings).forEach(s -> result.merge(s, 1l, Long::sum));
     return result;
 }
+public static Map<Integer, Integer[]> getGroupingByNumberOfDigits(int[][] array) {
+
+        Map<Integer, List<Integer>> map = streamOfNumbers(array)
+                .collect(Collectors.groupingBy(n -> Integer.toString(n).length()));
+        return map.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(),
+                e -> e.getValue().toArray(Integer[]::new)));
+
+    }
+
+    private static Stream<Integer> streamOfNumbers(int[][] array) {
+        return Arrays.stream(array).flatMapToInt(Arrays::stream).boxed();
+    }
+
+    public static Map<Integer, Long> getDistributionByNumberOfDigits(int[][] array) {
+
+        return streamOfNumbers(array).collect(Collectors.groupingBy(n -> Integer.toString(n).length(), 
+        Collectors.counting()));
+    }
+    public static void displayDigitsDistribution() {
+        //1_000_000 random numbers from 0 to Integer.MAX_VALUE created
+        //Output should contain all digits (0 - 9) with counters of occurrences
+        //sorted by descending order of occurrences
+        //example:
+        //1 -> <counter of occurrences>
+        //2 -> <counter of occurrences>
+        // ..............
+    }
+    public static ParenthesesMaps getParenthesesMaps(Character[][] openCloseParentheses) {
+        //TODO
+        return null;
+    }
 }
